@@ -105,40 +105,4 @@ include "../"."SPL_autoload_register.php";
 			$this->factory->connect($host,$user,$pass,$encoding,$port);
 		}
 	}
-	//$base = new DataBase;
-	//phpinfo();
-	//$base->connect_PG();
-	//$base->customFunction('query','Select * From Dane');
-	//$base->customFunction('fetch',PGFETCH::PG_ALL);
-	/*
-	$row = $base->customFunction('query','Select * From Dane');
-	$base->setObject($row);
-	$base->customFunction('fetch_all',MYSQLI_ASSOC);
-	*/
-	/*$row = $base->customFunction('prepare','Select * From Dane');
-	$base->setObject($row);
-	$row2 = $base->customFunction('execute');
-	$base->setObject($row2);
-	$base->customFunction('fetchAll',PDO::FETCH_ASSOC);
-	var_dump($base);*/
-	//$row = $base->customFunction('fetchAll',PDO::FETCH_ASSOC);
-	/*$base->Add(['Dane'=>['KlientId'=>18,'Imie'=>'Wacek','Nazwisko'=>'Walaszek','Phone'=>694582321],
-		['KlientId'=>19,'Imie'=>'Wiktor','Nazwisko'=>'Macierewicz','Phone'=>694582321],
-		'Firma'=>['FirmaId'=>4,'Nazwa'=>'Firmoteka','Kierownik'=>'Mariusz','Phone'=>694582321]]);*/
-	//var_dump($base);
-	//$base->Select()->From('Dane')->get();
-			//$test = $base->Where(["KlientId = '15'"])->From('Dane')->get();
-		//var_dump($test);
-		//$sql = $base->Where(["imie = 'Wiktor'","nazwisko = 'Zyla'"])->OrWhere(["imie = 'Piotr'"])->From('Dane')->get();
-		//var_dump($sql);
-		//$base->customFunction('query_bind','Select * From Dane Where imie = :Andrzej AND imie = :Bogdan');
-		//$base->customFunction('query','Select * From Dane Where KlientId = 15');
-		//$base->customFunction('fetch',PGFETCH::PG_ALL);
-		//$base->customFunction('bind',':Maciek','Marcin');*/
-		/*$base->Add(['Dane'=>['KlientId'=>16,'Imie'=>'Wacek','Nazwisko'=>'Walaszek','Phone'=>694582321],
-		['KlientId'=>17,'Imie'=>'Wiktor','Nazwisko'=>'Macierewicz','Phone'=>694582321],
-		'Firma'=>['FirmaId'=>3,'Nazwa'=>'Firmoteka','Kierownik'=>'Mariusz','Phone'=>694582321]]);*/
-		//var_dump($base);
-	//$base->Update(['Dane'=>['Where'=>['KlientId'=>8],'Imie'=>'Marcin','Nazwisko'=>'Macierewicz','Phone'=>123321],['Where'=>['KlientId'=>9],'Imie'=>'Wladek','Nazwisko'=>'Stary','Phone'=>123321]]);
-
 ?>
