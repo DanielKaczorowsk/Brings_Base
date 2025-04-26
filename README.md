@@ -23,7 +23,7 @@ $base->customFunction('fetch_all',MYSQLI_ASSOC);
 # EXAMPLE SEARCH
 Select(array $select = ['*'])</br>
 From(string $from,bool $join = false,string $decidion = null)</br>
-Where(array $where)</br>
+Where(array $where) Example Where(["row = 'field'","row2 = 'field2'"])</br>
 OrWhere(array $where)</br>
 ON(array $on)</br>
 INNERJOIN(array $innerjoin,array $on)</br>
@@ -36,7 +36,7 @@ $base = new DataBase;</br>
 	$object = $data->Select(["table.records",'table.records'])->CROSSJOIN($test)->From('table')->get();
 # EXAMPLE UNION
 $base->connect_PG();</br>
-	$test = $base->Where(["records = 'field'"])->From('table',true,'UNION')->get();</br>
+	$test = $base->Where(["row = 'field'"])->From('table',true,'UNION')->get();</br>
 	$data = new DataBase;</br>
 	$data->connect_PG();</br>
 	$object = $data->Select(["*"])->UNION($test)->From('table')->get();
