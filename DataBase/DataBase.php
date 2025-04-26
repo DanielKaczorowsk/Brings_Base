@@ -5,7 +5,6 @@ use DataBase\Enum\DataBase\DataBaseChose as DataBaseChose;
 use DataBase\Enum\PG\PGFETCH as PGFETCH;
 use pdo;
 include "../"."SPL_autoload_register.php";
-
 	class DataBase
 	{
 		private $factory,$query;
@@ -17,18 +16,22 @@ include "../"."SPL_autoload_register.php";
 			{
 				$this->reset();
 				$this->query->Select = $select;
+				$this->query->type = 'select';
 				return $this;
 			}
-			public function From(string $from)
+			public function From(string $from,bool $join = false,string $decidion = null)
 			{
 				$this->query->From = $from;
+				$this->query->JOIN = $join;
+				$this->query->Decidion = $decidion;
 				return $this;
 			}
 			public function Where(array $where)
 			{
-				if(isset($this->query->Select))
+				if(empty($this->query->type))
 				{
 					$this->reset();
+					$this->query->type = 'where';
 				}
 				$this->query->Where = $where;
 				return $this;
@@ -48,14 +51,15 @@ include "../"."SPL_autoload_register.php";
 				$this->query->INNERJOIN = array('innerjoin'=>$innerjoin,'on'=>$on);
 				return $this;
 			}
-			public function JOIN()
+			public function CROSSJOIN(string $query)
 			{
-				$this->query->JOIN = true;
+				$this->query->CROSSJOIN = $query;
 				return $this;
 			}
-			public function CROSSJOIN(MyBase $query)
+			public function UNION(string $query)
 			{
-				
+				$this->query->UNION = $query;
+				return $this;
 			}
 			public function setObject(object $object)
 			{
@@ -63,7 +67,7 @@ include "../"."SPL_autoload_register.php";
 			}
 			public function get()
 			{
-				$this->factory->get($this->query);
+				return $this->factory->set($this->query);
 			}
 			public function customFunction(string $function,mixed $field1=null,mixed $field2=null,mixed $field3=null)
 			{
@@ -88,6 +92,11 @@ include "../"."SPL_autoload_register.php";
 			$this->factory = new Factory(DataBaseChose::PDO_MYSQL);
 			$this->factory->Connect($host,$user,$pass,$encoding,$port);
 		}
+		public function connect_PDO_MSSQL(string $host = 'localhost',string $user='root',string $pass='',string $encoding='UTF8',string $port='')
+		{
+			$this->factory = new Factory(DataBaseChose::PDO_MMSQL);
+			$this->factory->Connect($host,$user,$pass,$encoding,$port);
+		}
 		public function connect_PG(string $host = 'localhost',string $user='postgres',string $pass='',string $encoding='UTF8',string $port='')
 		{
 			ini_set('display_errors', 1);
@@ -98,11 +107,14 @@ include "../"."SPL_autoload_register.php";
 		}
 		public function connect_MYSQLI(string $host = 'localhost',string $user='root',string $pass='',string $encoding='UTF8',string $port='')
 		{
-			ini_set('display_errors', 1);
-			ini_set('display_startup_errors', 1);
-			error_reporting(E_ALL);
 			$this->factory = new Factory(DataBaseChose::MYSQLI);
 			$this->factory->connect($host,$user,$pass,$encoding,$port);
 		}
+		public function connect_MMSQL(string $host = 'sqlexpress',string $user='sqlserv',string $pass='',string $encoding='UTF8',string $port='1433')
+		{
+			$this->factory = new Factory(DataBaseChose::MMSQL);
+			$this->factory->connect($host,$user,$pass,$encoding,$port);
+		}
 	}
+	
 ?>

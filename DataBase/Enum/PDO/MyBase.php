@@ -4,5 +4,5 @@
 		{
 			case PGSQL;
 			case MYSQL;
-			case SQLSRV;
+			case MSSQL;
 		}

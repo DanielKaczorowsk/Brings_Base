@@ -5,6 +5,7 @@ use DataBase\Enum\DataBase\DataBaseChose as DataBaseChose;
 use DataBase\Model\MyBasePDO as MyBasePDO;
 use DataBase\Model\MyBasePG as MyBasePG;
 use DataBase\Model\MyBaseMysqli as MyBaseMysqli;
+use DataBase\Model\MyBaseSQLSRV as MyBaseSQLSRV;
 	class FactoryDataBase
 	{
 		private $connect;
@@ -14,8 +15,10 @@ use DataBase\Model\MyBaseMysqli as MyBaseMysqli;
 			{
 				DataBaseChose::PDO_PG => $this->connect = new MyBasePDO(MyBase::PGSQL),
 				DataBaseChose::PDO_MYSQL => $this->connect = new MyBasePDO(MyBase::PGSQL),
+				DataBaseChose::PDO_MSSQL => $this->connect = new MyBasePDO(MyBase::MSSQL),
 				DataBaseChose::PG => $this->connect = new MyBasePG,
 				DataBaseChose::MYSQLI => $this->connect = new MyBaseMysqli,
+				DataBaseChose::MSSQL => $this->connect = new MyBaseSQLSRV,
 			};
 		}
 		public function connect(string $host,string $user,string $pass,string $encoding,string $port)
@@ -39,19 +42,19 @@ use DataBase\Model\MyBaseMysqli as MyBaseMysqli;
 			$factory = $this->connect->customFunction($function,$field1,$field2,$field3);
 			return $factory;
 		}
-		public function get($query)
+		public function set($query)
 		{
 			if(isset($query->Select))
 			{
 				$this->connect->Select($query->Select);
 			}
-			if(isset($query->From))
-			{
-				$this->connect->From($query->From);
-			}
 			if(isset($query->Where))
 			{
 				$this->connect->Where($query->Where);
+			}
+			if(isset($query->From))
+			{
+				$this->connect->From($query->From, $query->JOIN ?? false,$query->Decidion);
 			}
 			if(isset($query->OrWhere))
 			{
@@ -65,11 +68,22 @@ use DataBase\Model\MyBaseMysqli as MyBaseMysqli;
 			{
 				$this->connect->INNERJOIN($query->INNERJOIN);
 			}
-			if(isset($query->JOIN))
+			if(isset($query->CROSSJOIN))
 			{
-				$this->connect->JOIN($query->JOIN);
+				$this->connect->CROSSJOIN($query->CROSSJOIN);
 			}
-			$this->connect->get();
+			if(isset($query->UNION))
+			{
+				$this->connect->UNION($query->UNION);
+			}
+			if($query->JOIN === true)
+			{
+				return $this->connect->sql();
+			}
+			else
+			{
+				return $this->connect->get();
+			}
 		}
 	}
 ?>

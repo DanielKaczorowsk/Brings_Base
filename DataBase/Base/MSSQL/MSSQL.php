@@ -6,9 +6,9 @@
 				private $connect,$result,$query,$sqlName,$escaped;
 				public const CODE = 0;
 				public const PREVIOUS = null;
-				public function __construct(string $host = 'localhost',string $user='sqlserv',string $pass='samsung1234',string $encoding='UTF8',string $port='1433')
+				public function __construct(string $host = 'sqlexpress',string $user='sqlserv',string $pass='',string $encoding='UTF8',string $port='1433')
 				{
-					$serverName = "serverName\\sqlexpress, ".$port;
+					$serverName = "serverName\\".$host", ".$port;
 					$connectionInfo = array("Database"=>"dbName", "UID"=>$user, "PWD"=>$pass,'CharacterSet' => $encoding);
 					$this->connect = sqlsrv_connect( $serverName, $connectionInfo);
 					if($this->connect === FALSE)

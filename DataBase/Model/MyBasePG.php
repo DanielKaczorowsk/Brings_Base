@@ -5,7 +5,6 @@
 	use DataBase\Base\POSTGRESQL\PG as PG;
 	use DataBase\Trait\Custom_Function as Custom;
 	use DataBase\Object\DataBaseAbstract as BaseAbstract;
-
 		class MyBasePG extends BaseAbstract implements interface_connect
 		{
 			Private $connection, $stmt, $result,$isString,$object;
@@ -38,9 +37,6 @@
 			}
 			public function update(array $datas)
 			{
-				ini_set('display_errors', 1);
-				ini_set('display_startup_errors', 1);
-				error_reporting(E_ALL);
 				$this->connection->BEGIN_TRANSACTION();
 				foreach($datas as $key => $data)
 				{

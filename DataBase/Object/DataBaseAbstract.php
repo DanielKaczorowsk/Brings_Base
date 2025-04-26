@@ -3,7 +3,7 @@
 
 		abstract class DataBaseAbstract
 		{
-			private $query,$sql;
+			private $query,$sql,$JOIN;
 			public function reset():	void
 			{
 				$this->query = new \stdClass();
@@ -15,9 +15,11 @@
 				$this->query->type = 'select';
 				return $this;
 			}
-			public function From(string $from)
+			public function From(string $from,bool $join = false,$decidion = null)
 			{
 				$this->query->From = $from;
+				$this->query->JOIN = $join;
+				$this->query->Decidion = $decidion;
 				return $this;
 			}
 			public function Where(array $where)
@@ -53,23 +55,19 @@
 				$this->query->INNERJOIN = implode(' ',$inneron);
 				return $this;
 			}
-			public function CROSSJOIN(MyBase $query)
+			public function CROSSJOIN(string $query)
 			{
-				$query->sql();
-				$this->query->CROSSJOIN = ' CROSSJOIN '.$query->sql;
+				$this->query->CROSSJOIN = ' CROSS JOIN '.$query;
+				return $this;
 			}
-			public function JOIN($decidion)
+			public function UNION(string $query)
 			{
-				$this->query->JOIN = $decidion;
-			}
-			public function UNION(MyBase $query)
-			{
-				$query->sql();
-				$this->query->UNION = ' UNION '.$query->sql;
+				$this->query->UNION = ' UNION '.$query;
+				return $this;
 			}
 			public function sql()
 			{
-				if(isset($this->query->JOIN))
+				if($this->query->JOIN === true && $this->query->Decidion === 'CROSSJOIN')
 				{
 					$this->sql .= $this->query->From;
 				}
