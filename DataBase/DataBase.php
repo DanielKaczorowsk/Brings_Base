@@ -92,7 +92,7 @@ include "../"."SPL_autoload_register.php";
 			$this->factory = new Factory(DataBaseChose::PDO_MYSQL);
 			$this->factory->Connect($host,$user,$pass,$encoding,$port);
 		}
-		public function connect_PDO_MSSQL(string $host = 'localhost',string $user='root',string $pass='',string $encoding='UTF8',string $port='')
+		public function connect_PDO_MSSQL(string $host = 'localhost',string $user='root',string $pass='',string $encoding='UTF8',string $port='1433')
 		{
 			$this->factory = new Factory(DataBaseChose::PDO_MMSQL);
 			$this->factory->Connect($host,$user,$pass,$encoding,$port);
