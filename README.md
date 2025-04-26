@@ -1,9 +1,12 @@
-# ORM_PG_MYSQLI_SQLSERV
+# Welcome in my own ORM Brings_Base
+# Example Connection
 $base = new DataBase;
 $base->connect_PG();
+$base->connect_MYSQLI();
+$base->MSSQL();
 $base->connect_PDO_PG();
 $base->connect_PDO_MYSQL();
-$base->connect_MYSQLI();
+$base->connect_PDO_MSSQL();
 # ORM HAVE EXAMPLE FIELD
 connect_PG(string $host = 'localhost',string $user='postgres',string $pass='',string $encoding='UTF8',string $port='');
 connect_MYSQLI(string $host = 'localhost',string $user='root',string $pass='',string $encoding='UTF8',string $port='');
