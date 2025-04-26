@@ -22,7 +22,7 @@ $base->setObject($row);</br>
 $base->customFunction('fetch_all',MYSQLI_ASSOC);
 # EXAMPLE SEARCH
 Select(array $select = ['*'])</br>
-From(string $from)</br>
+From(string $from,bool $join = false,string $decidion = null)</br>
 Where(array $where)</br>
 OrWhere(array $where)</br>
 ON(array $on)</br>
